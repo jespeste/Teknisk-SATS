@@ -1,24 +1,14 @@
 import "./App.css"
+import ShowCard from "./ShowCard"
+import data from "./data/response.json"
 
 function App() {
   return (
     <>
       <div>
-        <h1>Hello!</h1>
-        <p>What is going on ere then?</p>
-        <ul>
-          <li>I am good</li>
-          <li>I am good</li>
-          <li>I am good</li>
-          <li>I am good</li>
-          <li>I am good</li>
-          <li>I am good</li>
-          <li>I am good</li>
-          <li>I am good</li>
-          <li>I am good</li>
-          <li>I am good</li>
-          <li>I am good</li>
-        </ul>
+        {data.results.map((session) => {
+          return <ShowCard key={session.id} session={session}></ShowCard>
+        })}
       </div>
     </>
   )
