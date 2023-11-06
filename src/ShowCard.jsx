@@ -5,7 +5,7 @@ import { useState } from "react"
 
 function ShowCard(props) {
   const date = props.session.zonedStartTime.dateTime.split("T")
-  date[0].split("-")
+  date[0] = date[0].split("-")
   const bookinginfo = props.session.bookingInfo
 
   // Make a state for position in wailist
@@ -70,7 +70,7 @@ function ShowCard(props) {
       <h3>{props.session.clubName}</h3>
       <p>{props.session.durationInMinutes} min</p>
       <p>
-        Den {date[0][2]}.{months[parseInt(date[0][2])]} klokken{" "}
+        Den {date[0][2]}. {months[parseInt(date[0][1])]} klokken{" "}
         {date[1].substring(0, 5)}
       </p>
       {!currentTimeZone && (
