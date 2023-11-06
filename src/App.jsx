@@ -5,7 +5,7 @@ import data from "./data/response.json"
 function App() {
   return (
     <>
-      <div>
+      <div className='grid-box'>
         {data.results.map((session) => {
           return <ShowCard key={session.id} session={session}></ShowCard>
         })}
