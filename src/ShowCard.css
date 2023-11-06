@@ -14,6 +14,14 @@
   background-color: black;
   border-radius: 3px;
 }
+
+.unbooking-button {
+  background-color: white;
+  border-radius: 3px;
+  border-color: black;
+  color: black;
+}
+
 .booking-button:hover {
   background-color: darkgray;
 }

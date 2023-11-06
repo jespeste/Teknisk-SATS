@@ -1,11 +1,18 @@
 /* eslint-disable react/prop-types */
 import "./ShowCard.css"
 import moment from "moment-timezone"
+import { useState } from "react"
 
 function ShowCard(props) {
   const date = props.session.zonedStartTime.dateTime.split("T")
   date[0].split("-")
   const bookinginfo = props.session.bookingInfo
+
+  // Make a state for position in wailist
+  const [posInWaitList, setWaitList] = useState(0)
+
+  //Check if already booked
+  const [isBooked, setIsBooked] = useState(false)
 
   // Check availability
   let availability = true
@@ -33,7 +40,27 @@ function ShowCard(props) {
     "november",
     "desember",
   ]
-
+  function handleClick(key) {
+    if (key.match("unbook")) {
+      setIsBooked(false)
+      if (bookinginfo.waitingListCount > 0) {
+        bookinginfo.waitingListCount -= 1
+        setWaitList(0)
+      }
+      if (availability) {
+        bookinginfo.bookedCount -= 1
+      }
+    } else {
+      setIsBooked(true)
+      if (bookinginfo.waitingListCount > 0) {
+        bookinginfo.waitingListCount += 1
+        setWaitList(bookinginfo.waitingListCount)
+        return
+      }
+      bookinginfo.bookedCount += 1
+    }
+  }
+  // I have added some unneccessary functionality because I can
   return (
     <div className='card-container'>
       <h2>{props.session.name}</h2>
@@ -47,17 +74,30 @@ function ShowCard(props) {
         <p className='warning'>WARNING: You may be in another timezone</p>
       )}
       <p>Instruktør: {props.session.instructor}</p>
-      <p>Instruktørnavn</p>
       <p>
         Antall plasser: {bookinginfo.capacity} Ledige plasser:{" "}
         {bookinginfo.capacity - bookinginfo.bookedCount}
       </p>
-      {bookinginfo.waitingListPosition > 0 && (
+      {bookinginfo.waitingListCount > 0 && (
         <p>Venteliste: {bookinginfo.waitingListCount}</p>
       )}
-      <button disabled={!availability} className='booking-button'>
-        Book now
-      </button>
+      {posInWaitList > 0 && <p>Din plass i ventelisten: {posInWaitList}</p>}
+      {isBooked ? (
+        <button
+          onClick={() => handleClick("unbook")}
+          className='unbooking-button'
+        >
+          Unbook
+        </button>
+      ) : (
+        <button
+          key='book'
+          onClick={() => handleClick("book")}
+          className='booking-button'
+        >
+          Book
+        </button>
+      )}
     </div>
   )
 }
