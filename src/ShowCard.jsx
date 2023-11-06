@@ -70,7 +70,7 @@ function ShowCard(props) {
       <h3>{props.session.clubName}</h3>
       <p>{props.session.durationInMinutes} min</p>
       <p>
-        Den {date[0][2]}. {months[parseInt(date[0][1])]} klokken{" "}
+        Den {date[0][2]}. {months[parseInt(date[0][1]) - 1]} klokken{" "}
         {date[1].substring(0, 5)}
       </p>
       {!currentTimeZone && (
