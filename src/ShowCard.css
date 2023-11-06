@@ -17,3 +17,10 @@
 .booking-button:hover {
   background-color: darkgray;
 }
+.booking-button:disabled {
+  background-color: gray;
+}
+
+.warning {
+  font-style: italic;
+}
