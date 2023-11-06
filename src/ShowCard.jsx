@@ -46,8 +46,10 @@ function ShowCard(props) {
       if (bookinginfo.waitingListCount > 0) {
         bookinginfo.waitingListCount -= 1
         setWaitList(0)
-      }
-      if (availability) {
+      } else if (
+        availability ||
+        bookinginfo.capacity == bookinginfo.bookedCount
+      ) {
         bookinginfo.bookedCount -= 1
       }
     } else {
@@ -55,11 +57,12 @@ function ShowCard(props) {
       if (bookinginfo.waitingListCount > 0) {
         bookinginfo.waitingListCount += 1
         setWaitList(bookinginfo.waitingListCount)
-        return
+      } else {
+        bookinginfo.bookedCount += 1
       }
-      bookinginfo.bookedCount += 1
     }
   }
+
   // I have added some unneccessary functionality because I can
   return (
     <div className='card-container'>
